@@ -13,7 +13,7 @@ Tag.init(
       autoIncrement: true,
       allowNull: false
     },
-    tag_name: DataTypes.STRING
+    name: DataTypes.STRING
   },
   {
     sequelize,
