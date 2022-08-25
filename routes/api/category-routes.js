@@ -7,10 +7,16 @@ router.get('/', (req, res) => {
   // find all categories
   Category.findAll({
     include: [{
-      model: Product
+      model: Product,
+      attributes: [
+        'name',
+        'price',
+        'stock'
+      ]
     }]
   })
   .then(categories => {
+    console.log(categories)
     res.json(categories)
   }).catch(err =>{
     console.log(err)
