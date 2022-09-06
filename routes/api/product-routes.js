@@ -8,8 +8,11 @@ router.get('/', (req, res) => {
   // find all products
   Product.findAll({
     include: [{
-      model: Category,
-      model: Tag
+      model: Category, 
+      as: 'category'
+    },{
+      model: Tag,
+      as: 'tag',
     }]
   })
     .then(products => {
@@ -30,8 +33,11 @@ router.get('/:id', (req, res) => {
       id: req.params.id
     },
     include: [{
-      model: Category,
-      model: Tag
+      model: Category, 
+      as: 'category'
+    },{
+      model: Tag,
+      as: 'tag',
     }]
   })
     .then(product => {
@@ -62,7 +68,9 @@ router.post('/', (req, res) => {
     .then((product) => {
       // if there's product tags, we need to create pairings to bulk create in the ProductTag model
       if (req.body.tagIds.length) {
-        const productTagIdArr = req.body.tagIds.map((tag_id) => {
+        const arr = req.body.tagIds;
+        console.log(arr+" ... "+ typeof arr);
+        const productTagIdArr = arr.map((tag_id) => {
           return {
             product_id: product.id,
             tag_id,
